@@ -120,27 +120,28 @@
   <div class="container">
     <div class="header">
       <h1>🏦 Credit Scoring SDK</h1>
-      <p>Ejemplo de integración en Vanilla HTML</p>
+      <p>Vanilla HTML Integration Example</p>
     </div>
 
     <div class="widget-wrapper">
-      <!-- El Web Component se integra simplemente con una etiqueta HTML -->
+      <!-- The Web Component integrates with a simple HTML tag -->
       <credit-scoring-widget
         id="widget"
         config-id="demo-001"
+        api-url="http://localhost:3000"
       ></credit-scoring-widget>
     </div>
 
     <div class="demo-controls">
       <h3>Demo Controls</h3>
-      <button onclick="changeTheme('blue')">Tema Azul</button>
-      <button onclick="changeTheme('green')">Tema Verde</button>
-      <button onclick="changeTheme('purple')">Tema Morado</button>
-      <button onclick="resetWidget()">Resetear Widget</button>
+      <button onclick="changeTheme('blue')">Blue Theme</button>
+      <button onclick="changeTheme('green')">Green Theme</button>
+      <button onclick="changeTheme('purple')">Purple Theme</button>
+      <button onclick="resetWidget()">Reset Widget</button>
 
       <div class="event-log" id="eventLog">
         <div style="color: #6c757d; text-align: center; padding: 1rem;">
-          Los eventos del widget aparecerán aquí...
+          Widget events will appear here...
         </div>
       </div>
     </div>

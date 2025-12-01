@@ -296,10 +296,23 @@ export class CreditScoringWidget extends LitElement {
   }
 
   /**
-   * Mock API call (replace with real API in production)
+   * Fetch configuration from API or fallback to mock
    */
   private async fetchConfigMock(): Promise<{ success: boolean; data?: WidgetConfig; error?: string }> {
-    // Simulate network delay
+    // Try to load from real API first
+    try {
+      const response = await fetch(`${this.apiUrl}/api/configs/${this.configId}`);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.data) {
+          return { success: true, data: data.data };
+        }
+      }
+    } catch (err) {
+      console.warn('Failed to load from API, using mock data');
+    }
+
+    // Fallback to mock data
     await new Promise(resolve => setTimeout(resolve, 500));
 
     // Mock configuration

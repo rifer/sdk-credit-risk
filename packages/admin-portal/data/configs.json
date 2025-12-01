@@ -1,0 +1,67 @@
+[
+  {
+    "id": "demo-001",
+    "name": "Credit Application Form - Demo",
+    "theme": {
+      "primaryColor": "#0066cc",
+      "secondaryColor": "#6c757d",
+      "backgroundColor": "#ffffff",
+      "textColor": "#212529",
+      "errorColor": "#dc3545",
+      "successColor": "#28a745",
+      "borderColor": "#ced4da",
+      "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "fontSize": "16px",
+      "borderRadius": "4px",
+      "spacing": "16px",
+      "logoUrl": "https://via.placeholder.com/200x60?text=Bank+Logo",
+      "logoMaxWidth": "180px"
+    },
+    "formSchema": {
+      "title": "Credit Application",
+      "description": "Complete the form to apply for credit",
+      "submitButtonText": "Submit Application",
+      "fields": [
+        {
+          "id": "fullName",
+          "type": "text",
+          "label": "Full Name",
+          "placeholder": "John Doe",
+          "validation": {
+            "required": true,
+            "minLength": 3,
+            "message": "Name must be at least 3 characters"
+          }
+        },
+        {
+          "id": "email",
+          "type": "email",
+          "label": "Email Address",
+          "placeholder": "john@example.com",
+          "validation": {
+            "required": true,
+            "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+            "message": "Please enter a valid email"
+          }
+        },
+        {
+          "id": "amount",
+          "type": "number",
+          "label": "Requested Amount ($)",
+          "placeholder": "10000",
+          "helpText": "Amount between $1,000 and $50,000",
+          "validation": {
+            "required": true,
+            "min": 1000,
+            "max": 50000,
+            "message": "Amount must be between $1,000 and $50,000"
+          }
+        }
+      ]
+    },
+    "submitEndpoint": "/api/submit",
+    "successMessage": "Application submitted successfully!",
+    "errorMessage": "Error submitting application. Please try again.",
+    "showBranding": true
+  }
+]
