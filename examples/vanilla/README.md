@@ -1,10 +1,10 @@
 # Vanilla HTML Example
 
-Ejemplo de integración del Credit Scoring Widget en HTML puro.
+Credit Scoring Widget integration example in vanilla HTML.
 
-## Uso
+## Usage
 
-1. Primero, compila el Web Component:
+1. First, build the Web Component:
 
 ```bash
 cd ../../packages/web-component
@@ -12,30 +12,30 @@ pnpm install
 pnpm build
 ```
 
-2. Abre `index.html` en tu navegador
+2. Open `index.html` in your browser
 
-## Integración
+## Integration
 
 ```html
-<!-- Importar el script del widget -->
+<!-- Import the widget script -->
 <script type="module" src="https://cdn.example.com/credit-scoring-widget.js"></script>
 
-<!-- Usar el Web Component -->
-<credit-scoring-widget config-id="tu-config-id"></credit-scoring-widget>
+<!-- Use the Web Component -->
+<credit-scoring-widget config-id="your-config-id"></credit-scoring-widget>
 ```
 
-## Opciones de configuración
+## Configuration Options
 
 ```html
 <credit-scoring-widget
   config-id="abc123"
-  api-url="https://api.tu-dominio.com"
+  api-url="https://api.your-domain.com"
 ></credit-scoring-widget>
 ```
 
-## Personalización de tema
+## Theme Customization
 
-Puedes sobrescribir el tema usando CSS variables:
+You can override the theme using CSS variables:
 
 ```javascript
 const widget = document.querySelector('credit-scoring-widget');
@@ -43,13 +43,13 @@ widget.style.setProperty('--cs-primary-color', '#ff0000');
 widget.style.setProperty('--cs-font-family', 'Arial, sans-serif');
 ```
 
-## Eventos
+## Events
 
-El widget emite eventos personalizados:
+The widget emits custom events:
 
 ```javascript
 widget.addEventListener('submit-success', (e) => {
-  console.log('Formulario enviado:', e.detail);
+  console.log('Form submitted:', e.detail);
 });
 
 widget.addEventListener('submit-error', (e) => {

@@ -1,239 +1,184 @@
 # Credit Scoring SDK 🏦
 
-SDK B2B de credit scoring con Web Component embebible para bancos y entidades financieras.
+B2B credit scoring SDK with embeddable Web Component for banks and financial institutions.
 
-## 🚀 Características
+## 🚀 Features
 
-- **Web Component con Lit**: Framework-agnostic, funciona con cualquier stack
-- **Configuración Remota**: Portal de administración para configurar widgets sin code
-- **Formularios Dinámicos**: Basados en JSON Schema, totalmente configurables
-- **Theming Completo**: Colores, fuentes, logos personalizables
-- **Shadow DOM**: Aislamiento CSS completo
-- **TypeScript**: Tipado fuerte en todo el proyecto
-- **Monorepo**: Organizado con pnpm workspaces
+- **Web Component with Lit**: Framework-agnostic, works with any stack
+- **Remote Configuration**: Admin portal to configure widgets without code
+- **Dynamic Forms**: Based on JSON Schema, fully configurable
+- **Complete Theming**: Customizable colors, fonts, and logos
+- **Shadow DOM**: Complete CSS isolation
+- **TypeScript**: Strong typing throughout the project
+- **Monorepo**: Organized with pnpm workspaces
 
-## 📦 Estructura del Proyecto
+## 📦 Project Structure
 
 ```
 sdk-credit-risk/
 ├── packages/
-│   ├── web-component/      # Widget embebible (Lit + TypeScript)
-│   ├── admin-portal/       # Portal de administración (Next.js)
-│   └── shared/             # Types compartidos
+│   ├── web-component/      # Embeddable widget (Lit + TypeScript)
+│   ├── admin-portal/       # Admin portal (Next.js)
+│   └── shared/             # Shared types
 ├── examples/
-│   ├── vanilla/            # Ejemplo HTML puro
-│   └── react/              # Ejemplo React + TypeScript
+│   └── vanilla/            # Vanilla HTML example
 └── pnpm-workspace.yaml
 ```
 
-## 🛠️ Instalación y Setup
+## 🛠️ Installation and Setup
 
-### Prerrequisitos
+### Prerequisites
 
 - Node.js >= 18
 - pnpm >= 8
 
-### Instalación
+### Installation
 
 ```bash
-# Clonar el repositorio
+# Clone the repository
 git clone <repository-url>
 cd sdk-credit-risk
 
-# Instalar todas las dependencias
+# Install all dependencies
 pnpm install
 
-# Build de todos los packages
+# Build all packages
 pnpm build
 ```
 
 ## 🎯 Quick Start
 
-### 1. Desarrollo del Web Component
+### 1. Web Component Development
 
 ```bash
 cd packages/web-component
 pnpm dev
 ```
 
-### 2. Desarrollo del Admin Portal
+### 2. Admin Portal Development
 
 ```bash
 cd packages/admin-portal
 pnpm dev
 ```
 
-### 3. Probar los ejemplos
+### 3. Try the Example
 
-#### Vanilla HTML
 ```bash
-# 1. Build del web component
+# 1. Build the web component
 cd packages/web-component
 pnpm build
 
-# 2. Abrir examples/vanilla/index.html en tu navegador
+# 2. Open examples/vanilla/index.html in your browser
 ```
 
-#### React
-```bash
-cd examples/react
-pnpm install
-pnpm dev
-```
+## 📖 Widget Usage
 
-## 📖 Uso del Widget
-
-### Integración en HTML
+### Basic Integration
 
 ```html
-<!-- 1. Importar el script -->
-<script type="module" src="https://cdn.tu-dominio.com/credit-scoring-widget.js"></script>
+<!-- 1. Import the script -->
+<script type="module" src="https://cdn.your-domain.com/credit-scoring-widget.js"></script>
 
-<!-- 2. Usar el Web Component -->
-<credit-scoring-widget config-id="tu-config-id"></credit-scoring-widget>
+<!-- 2. Use the Web Component -->
+<credit-scoring-widget config-id="your-config-id"></credit-scoring-widget>
 ```
 
-### Integración en React
+### Complete Example
 
-```tsx
-import { useEffect, useRef } from 'react';
-import '@credit-scoring/web-component';
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Scoring Widget</title>
+</head>
+<body>
+  <!-- The widget -->
+  <credit-scoring-widget config-id="demo-001"></credit-scoring-widget>
 
-function App() {
-  const widgetRef = useRef<HTMLElement>(null);
+  <!-- Import the script -->
+  <script type="module" src="./dist/credit-scoring-widget.js"></script>
 
-  useEffect(() => {
-    const widget = widgetRef.current;
-    if (!widget) return;
+  <script>
+    const widget = document.querySelector('credit-scoring-widget');
 
-    // Escuchar eventos
-    const handleSuccess = (e: Event) => {
-      console.log('Formulario enviado:', (e as CustomEvent).detail);
-    };
+    // Listen to events
+    widget.addEventListener('submit-success', (e) => {
+      console.log('Form submitted:', e.detail);
+    });
 
-    widget.addEventListener('submit-success', handleSuccess);
-    return () => widget.removeEventListener('submit-success', handleSuccess);
-  }, []);
-
-  return (
-    <credit-scoring-widget
-      ref={widgetRef}
-      config-id="demo-001"
-    />
-  );
-}
+    widget.addEventListener('submit-error', (e) => {
+      console.error('Error:', e.detail);
+    });
+  </script>
+</body>
+</html>
 ```
 
-### Integración en Vue
+## 🎨 Customization
 
-```vue
-<template>
-  <credit-scoring-widget
-    :config-id="configId"
-    @submit-success="handleSuccess"
-  />
-</template>
-
-<script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import '@credit-scoring/web-component';
-
-const configId = ref('demo-001');
-
-const handleSuccess = (e: CustomEvent) => {
-  console.log('Formulario enviado:', e.detail);
-};
-</script>
-```
-
-### Integración en Angular
-
-```typescript
-// app.component.ts
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import '@credit-scoring/web-component';
-
-@Component({
-  selector: 'app-root',
-  template: `
-    <credit-scoring-widget
-      [attr.config-id]="configId"
-      (submit-success)="handleSuccess($event)"
-    ></credit-scoring-widget>
-  `,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
-export class AppComponent {
-  configId = 'demo-001';
-
-  handleSuccess(event: any) {
-    console.log('Formulario enviado:', event.detail);
-  }
-}
-```
-
-## 🎨 Personalización
-
-### Theming con CSS Variables
+### Theming with CSS Variables
 
 ```javascript
 const widget = document.querySelector('credit-scoring-widget');
 
-// Personalizar colores
+// Customize colors
 widget.style.setProperty('--cs-primary-color', '#ff0000');
 widget.style.setProperty('--cs-secondary-color', '#00ff00');
 widget.style.setProperty('--cs-background-color', '#ffffff');
 widget.style.setProperty('--cs-text-color', '#333333');
 
-// Personalizar fuentes
+// Customize fonts
 widget.style.setProperty('--cs-font-family', 'Arial, sans-serif');
 widget.style.setProperty('--cs-font-size', '18px');
 
-// Personalizar bordes y espaciado
+// Customize borders and spacing
 widget.style.setProperty('--cs-border-radius', '8px');
 widget.style.setProperty('--cs-spacing', '20px');
 ```
 
-### Variables CSS Disponibles
+### Available CSS Variables
 
-| Variable | Default | Descripción |
+| Variable | Default | Description |
 |----------|---------|-------------|
-| `--cs-primary-color` | `#0066cc` | Color primario |
-| `--cs-secondary-color` | `#6c757d` | Color secundario |
-| `--cs-background-color` | `#ffffff` | Color de fondo |
-| `--cs-text-color` | `#212529` | Color del texto |
-| `--cs-error-color` | `#dc3545` | Color de errores |
-| `--cs-success-color` | `#28a745` | Color de éxito |
-| `--cs-border-color` | `#ced4da` | Color de bordes |
-| `--cs-font-family` | System fonts | Fuente del texto |
-| `--cs-font-size` | `16px` | Tamaño de fuente base |
-| `--cs-border-radius` | `4px` | Radio de bordes |
-| `--cs-spacing` | `16px` | Espaciado base |
-| `--cs-logo-max-width` | `200px` | Ancho máximo del logo |
+| `--cs-primary-color` | `#0066cc` | Primary color |
+| `--cs-secondary-color` | `#6c757d` | Secondary color |
+| `--cs-background-color` | `#ffffff` | Background color |
+| `--cs-text-color` | `#212529` | Text color |
+| `--cs-error-color` | `#dc3545` | Error color |
+| `--cs-success-color` | `#28a745` | Success color |
+| `--cs-border-color` | `#ced4da` | Border color |
+| `--cs-font-family` | System fonts | Text font |
+| `--cs-font-size` | `16px` | Base font size |
+| `--cs-border-radius` | `4px` | Border radius |
+| `--cs-spacing` | `16px` | Base spacing |
+| `--cs-logo-max-width` | `200px` | Maximum logo width |
 
-## 📡 Eventos
+## 📡 Events
 
-El widget emite eventos personalizados:
+The widget emits custom events:
 
 ```javascript
 const widget = document.querySelector('credit-scoring-widget');
 
-// Éxito en el envío
+// Submit success
 widget.addEventListener('submit-success', (e) => {
-  console.log('Datos:', e.detail.data);
-  // Redirigir, mostrar mensaje, etc.
+  console.log('Data:', e.detail.data);
+  // Redirect, show message, etc.
 });
 
-// Error en el envío
+// Submit error
 widget.addEventListener('submit-error', (e) => {
   console.error('Error:', e.detail.error);
-  // Mostrar mensaje de error, retry, etc.
+  // Show error message, retry, etc.
 });
 ```
 
-## 🔧 Configuración del Widget
+## 🔧 Widget Configuration
 
-### Estructura de Configuración
+### Configuration Structure
 
 ```typescript
 interface WidgetConfig {
@@ -251,7 +196,7 @@ interface WidgetConfig {
 }
 ```
 
-### Ejemplo de Configuración
+### Configuration Example
 
 ```json
 {
@@ -265,13 +210,13 @@ interface WidgetConfig {
     "logoUrl": "https://example.com/logo.png"
   },
   "formSchema": {
-    "title": "Solicitud de Crédito",
-    "description": "Complete el formulario",
+    "title": "Credit Application",
+    "description": "Complete the form",
     "fields": [
       {
         "id": "fullName",
         "type": "text",
-        "label": "Nombre Completo",
+        "label": "Full Name",
         "validation": {
           "required": true,
           "minLength": 3
@@ -283,18 +228,18 @@ interface WidgetConfig {
 }
 ```
 
-## 🏗️ Desarrollo
+## 🏗️ Development
 
-### Scripts Disponibles
+### Available Scripts
 
 ```bash
-# Desarrollo de todos los packages en paralelo
+# Development of all packages in parallel
 pnpm dev
 
-# Build de todos los packages
+# Build all packages
 pnpm build
 
-# Build de un package específico
+# Build a specific package
 pnpm build:web-component
 pnpm build:admin-portal
 
@@ -304,20 +249,20 @@ pnpm lint
 # Type checking
 pnpm type-check
 
-# Limpiar todo
+# Clean everything
 pnpm clean
 ```
 
-### Estructura de Packages
+### Package Structure
 
 #### `@credit-scoring/shared`
-Types y utilidades compartidas entre packages.
+Shared types and utilities between packages.
 
 #### `@credit-scoring/web-component`
-Widget embebible construido con Lit. Exporta un Custom Element `<credit-scoring-widget>`.
+Embeddable widget built with Lit. Exports a Custom Element `<credit-scoring-widget>`.
 
 #### `@credit-scoring/admin-portal`
-Portal de administración construido con Next.js para gestionar configuraciones.
+Admin portal built with Next.js to manage configurations.
 
 ## 🚢 Deployment
 
@@ -327,12 +272,12 @@ Portal de administración construido con Next.js para gestionar configuraciones.
 cd packages/web-component
 pnpm build
 
-# Los archivos en dist/ están listos para CDN
-# - dist/credit-scoring-widget.js (ESM)
+# Files in dist/ are ready for CDN
+# - dist/credit-scoring-widget.mjs (ESM)
 # - dist/credit-scoring-widget.umd.js (UMD)
 ```
 
-Subir a tu CDN preferido (Cloudflare, AWS CloudFront, etc.)
+Upload to your preferred CDN (Cloudflare, AWS CloudFront, etc.)
 
 ### Admin Portal
 
@@ -340,82 +285,81 @@ Subir a tu CDN preferido (Cloudflare, AWS CloudFront, etc.)
 cd packages/admin-portal
 pnpm build
 
-# Desplegar en Vercel
+# Deploy to Vercel
 vercel
 
-# O en cualquier plataforma que soporte Next.js
+# Or any platform that supports Next.js
 ```
 
-## 📚 Documentación Adicional
+## 📚 Additional Documentation
 
 - [Web Component README](./packages/web-component/README.md)
 - [Admin Portal README](./packages/admin-portal/README.md)
-- [Ejemplo Vanilla](./examples/vanilla/README.md)
-- [Ejemplo React](./examples/react/README.md)
+- [Vanilla Example](./examples/vanilla/README.md)
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-Las contribuciones son bienvenidas. Por favor:
+Contributions are welcome. Please:
 
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/amazing-feature`)
-3. Commit tus cambios (`git commit -m 'Add amazing feature'`)
-4. Push a la rama (`git push origin feature/amazing-feature`)
-5. Abre un Pull Request
+1. Fork the repository
+2. Create a branch for your feature (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## 📝 Licencia
+## 📝 License
 
-Este proyecto está bajo licencia MIT. Ver archivo [LICENSE](./LICENSE) para más detalles.
+This project is under MIT license. See [LICENSE](./LICENSE) file for more details.
 
-## 🆘 Soporte
+## 🆘 Support
 
-Para reportar bugs o solicitar features, abre un issue en el repositorio.
+To report bugs or request features, open an issue in the repository.
 
 ## 🎯 Roadmap
 
-### Fase 1 - MVP ✅
-- [x] Web Component básico con Lit
-- [x] Sistema de theming
-- [x] Formularios dinámicos
-- [x] Ejemplos de integración
-- [x] Admin portal estructura
+### Phase 1 - MVP ✅
+- [x] Basic Web Component with Lit
+- [x] Theming system
+- [x] Dynamic forms
+- [x] Integration example
+- [x] Admin portal structure
 
-### Fase 2 - Portal de Admin
-- [ ] Sistema de autenticación
-- [ ] CRUD de configuraciones
-- [ ] Editor visual de temas
-- [ ] Constructor de formularios
-- [ ] Vista previa en tiempo real
+### Phase 2 - Admin Portal
+- [ ] Authentication system
+- [ ] Configuration CRUD
+- [ ] Visual theme editor
+- [ ] Form builder
+- [ ] Real-time preview
 
-### Fase 3 - Features Avanzadas
-- [ ] Analytics y métricas
+### Phase 3 - Advanced Features
+- [ ] Analytics and metrics
 - [ ] Webhooks
-- [ ] Multi-idioma (i18n)
+- [ ] Multi-language (i18n)
 - [ ] A/B testing
 - [ ] Rate limiting
 - [ ] CDN distribution
 
-### Fase 4 - Enterprise
-- [ ] White-labeling completo
+### Phase 4 - Enterprise
+- [ ] Complete white-labeling
 - [ ] SSO/SAML
-- [ ] Gestión de equipos
+- [ ] Team management
 - [ ] Audit logs
 - [ ] SLA monitoring
 
-## 🏆 Casos de Uso
+## 🏆 Use Cases
 
-### Bancos
-Integra formularios de solicitud de crédito en tu web sin desarrollo custom.
+### Banks
+Integrate credit application forms on your website without custom development.
 
 ### Fintech
-Ofrece evaluación de crédito como servicio a tus partners.
+Offer credit evaluation as a service to your partners.
 
 ### Marketplaces
-Añade scoring crediticio en tu flujo de checkout.
+Add credit scoring to your checkout flow.
 
-### Instituciones Financieras
-Centraliza la gestión de formularios de evaluación crediticia.
+### Financial Institutions
+Centralize management of credit evaluation forms.
 
 ---
 
-Desarrollado con ❤️ para la industria financiera
+Built with ❤️ for the financial industry

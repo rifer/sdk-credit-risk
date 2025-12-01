@@ -2,7 +2,7 @@
   "name": "credit-scoring-sdk",
   "version": "1.0.0",
   "private": true,
-  "description": "Credit Scoring B2B SDK - Web Component embebible para bancos y entidades financieras",
+  "description": "Credit Scoring B2B SDK - Embeddable Web Component for banks and financial institutions",
   "scripts": {
     "dev": "pnpm --filter \"./packages/*\" --parallel dev",
     "build": "pnpm --filter \"./packages/*\" build",
