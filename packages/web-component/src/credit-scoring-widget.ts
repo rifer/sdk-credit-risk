@@ -566,8 +566,8 @@ export class CreditScoringWidget extends LitElement {
           composed: true,
         }));
 
-        // Redirect to results page
-        window.location.href = `${this.apiUrl}/results/${result.data.id}`;
+        // Redirect to results page in the same directory
+        window.location.href = `results.html?id=${result.data.id}`;
       } else {
         throw new Error(result.error || 'Failed to submit');
       }

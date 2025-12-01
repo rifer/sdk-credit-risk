@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Analysis Results</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 2rem;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .approval-card {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .approval-card.approved {
+      background: #d4edda;
+      border: 3px solid #28a745;
+    }
+
+    .approval-card.denied {
+      background: #f8d7da;
+      border: 3px solid #dc3545;
+    }
+
+    .approval-icon {
+      font-size: 4rem;
+    }
+
+    .approval-text h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .approval-text.approved h2 {
+      color: #155724;
+    }
+
+    .approval-text.denied h2 {
+      color: #721c24;
+    }
+
+    .approval-text p {
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .score-display {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .score-circle {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 1.5rem;
+      position: relative;
+    }
+
+    .score-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3.5rem;
+      font-weight: bold;
+    }
+
+    .score-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    .risk-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .risk-very-low {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .risk-low {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .risk-medium {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .risk-high {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .risk-very-high {
+      background: #f5c6cb;
+      color: #721c24;
+    }
+
+    .info-row {
+      display: flex;
+      justify-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    .info-value {
+      font-weight: 600;
+      color: #212529;
+    }
+
+    .progress-bar-container {
+      margin: 1rem 0;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #e9ecef;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 5px;
+      transition: width 0.3s ease;
+    }
+
+    .flag-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+
+    .flag-item:last-child {
+      border-bottom: none;
+    }
+
+    .flag-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #495057;
+    }
+
+    .flag-value.yes {
+      color: #dc3545;
+      font-weight: 600;
+    }
+
+    .flag-value.no {
+      color: #28a745;
+      font-weight: 600;
+    }
+
+    .notes-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .notes-list li {
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      background: #f8f9fa;
+      border-radius: 6px;
+      border-left: 4px solid #0066cc;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+    }
+
+    .button-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .button-primary:hover {
+      background: #5568d3;
+    }
+
+    .button-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .button-secondary:hover {
+      background: #5a6268;
+    }
+
+    .actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .error-container {
+      text-align: center;
+      padding: 3rem;
+    }
+
+    .error-container h2 {
+      color: #dc3545;
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.75rem;
+      }
+
+      .approval-card {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .button {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .actions {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🏦 Credit Analysis Report</h1>
+    </div>
+
+    <div id="results-container"></div>
+  </div>
+
+  <script>
+    // Get analysis ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const analysisId = urlParams.get('id');
+
+    if (!analysisId) {
+      showError('No analysis ID provided');
+    } else {
+      loadAnalysis(analysisId);
+    }
+
+    function loadAnalysis(id) {
+      // Get analysis from sessionStorage
+      const stored = sessionStorage.getItem(`analysis_${id}`);
+
+      if (!stored) {
+        showError('Analysis not found. The data may have expired.');
+        return;
+      }
+
+      const analysis = JSON.parse(stored);
+      renderAnalysis(analysis);
+    }
+
+    function showError(message) {
+      document.getElementById('results-container').innerHTML = `
+        <div class="card error-container">
+          <h2>⚠️ ${message}</h2>
+          <p style="color: #6c757d; margin-bottom: 2rem;">The credit analysis could not be loaded.</p>
+          <a href="index.html" class="button button-primary">← Go Back</a>
+        </div>
+      `;
+    }
+
+    function renderAnalysis(analysis) {
+      const container = document.getElementById('results-container');
+
+      const approved = analysis.approved;
+      const scoreColor = getScoreColor(analysis.creditScore);
+      const riskClass = getRiskClass(analysis.riskLevel);
+
+      container.innerHTML = `
+        <!-- Approval Status -->
+        <div class="card approval-card ${approved ? 'approved' : 'denied'}">
+          <div class="approval-icon">${approved ? '✅' : '❌'}</div>
+          <div class="approval-text ${approved ? 'approved' : 'denied'}">
+            <h2>${approved ? 'Application Approved' : 'Application Requires Review'}</h2>
+            <p>${approved
+              ? `Approved for up to $${analysis.maxLoanAmount.toLocaleString()} at ${analysis.recommendedRate.toFixed(2)}% APR`
+              : 'This application needs manual review before processing'
+            }</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <!-- Credit Score -->
+          <div class="card">
+            <h3 style="margin-bottom: 1.5rem;">Credit Score</h3>
+            <div class="score-display">
+              <div class="score-circle">
+                <svg width="200" height="200" style="transform: rotate(-90deg);">
+                  <circle cx="100" cy="100" r="90" stroke="#e9ecef" stroke-width="12" fill="none"/>
+                  <circle cx="100" cy="100" r="90" stroke="${scoreColor}" stroke-width="12" fill="none"
+                    stroke-dasharray="${analysis.creditScore * 5.65} 565" stroke-linecap="round"/>
+                </svg>
+                <div class="score-value" style="color: ${scoreColor};">
+                  ${analysis.creditScore}
+                </div>
+              </div>
+              <div class="score-label">out of 100</div>
+              <div style="margin-top: 1rem;">
+                <span class="risk-badge risk-${riskClass}">
+                  ${analysis.riskLevel.replace(/_/g, ' ')} RISK
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Applicant Info -->
+          <div class="card">
+            <h3 style="margin-bottom: 1.5rem;">Applicant Information</h3>
+            <div class="info-row">
+              <span class="info-label">Name</span>
+              <span class="info-value">${analysis.applicantName}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Email</span>
+              <span class="info-value">${analysis.applicantEmail}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Analysis ID</span>
+              <span class="info-value" style="font-size: 0.8rem;">${analysis.id}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Date</span>
+              <span class="info-value">${new Date(analysis.timestamp).toLocaleString()}</span>
+            </div>
+            ${approved ? `
+              <div class="info-row">
+                <span class="info-label">Max Loan Amount</span>
+                <span class="info-value" style="color: #28a745;">$${analysis.maxLoanAmount.toLocaleString()}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Recommended Rate</span>
+                <span class="info-value" style="color: #0066cc;">${analysis.recommendedRate.toFixed(2)}% APR</span>
+              </div>
+            ` : ''}
+          </div>
+        </div>
+
+        <div class="grid">
+          <!-- Score Breakdown -->
+          <div class="card">
+            <h3 style="margin-bottom: 1.5rem;">Score Breakdown</h3>
+            ${Object.entries(analysis.scoreBreakdown).map(([key, value]) => `
+              <div class="progress-bar-container">
+                <div class="progress-label">
+                  <span>${formatLabel(key)}</span>
+                  <span><strong>${value}</strong></span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: ${value}%; background: ${getScoreColor(value)};"></div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Credit Flags -->
+          <div class="card">
+            <h3 style="margin-bottom: 1.5rem;">Credit Flags</h3>
+            <div class="flag-item">
+              <div class="flag-label"><span>🚫</span> Blacklisted</div>
+              <div class="flag-value ${analysis.flags.isBlacklisted ? 'yes' : 'no'}">
+                ${analysis.flags.isBlacklisted ? 'YES' : 'NO'}
+              </div>
+            </div>
+            <div class="flag-item">
+              <div class="flag-label"><span>👤</span> PEP (Politically Exposed)</div>
+              <div class="flag-value ${analysis.flags.isPEP ? 'yes' : 'no'}">
+                ${analysis.flags.isPEP ? 'YES' : 'NO'}
+              </div>
+            </div>
+            <div class="flag-item">
+              <div class="flag-label"><span>⚠️</span> Sanctions List</div>
+              <div class="flag-value ${analysis.flags.isInSanctionsList ? 'yes' : 'no'}">
+                ${analysis.flags.isInSanctionsList ? 'YES' : 'NO'}
+              </div>
+            </div>
+            <div class="flag-item">
+              <div class="flag-label"><span>⚖️</span> Legal Proceedings</div>
+              <div class="flag-value ${analysis.flags.hasLegalProceedings ? 'yes' : 'no'}">
+                ${analysis.flags.hasLegalProceedings ? 'YES' : 'NO'}
+              </div>
+            </div>
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #e9ecef;">
+              <div class="info-row">
+                <span class="info-label">Total Debt</span>
+                <span class="info-value">$${analysis.flags.totalDebt.toLocaleString()}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Unpaid Debts</span>
+                <span class="info-value">${analysis.flags.unpaidDebts}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Recent Defaults</span>
+                <span class="info-value">${analysis.flags.recentDefaults}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Credit Utilization</span>
+                <span class="info-value">${analysis.flags.creditUtilization}%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analysis Notes -->
+        <div class="card">
+          <h3 style="margin-bottom: 1.5rem;">Analysis Notes</h3>
+          <ul class="notes-list">
+            ${analysis.notes.map(note => `<li>${note}</li>`).join('')}
+          </ul>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions">
+          <a href="index.html" class="button button-primary">← New Application</a>
+          <button onclick="window.print()" class="button button-secondary">🖨️ Print Report</button>
+        </div>
+      `;
+    }
+
+    function getScoreColor(score) {
+      if (score >= 80) return '#28a745';
+      if (score >= 60) return '#0066cc';
+      if (score >= 40) return '#ffc107';
+      if (score >= 20) return '#fd7e14';
+      return '#dc3545';
+    }
+
+    function getRiskClass(level) {
+      return level.toLowerCase().replace(/_/g, '-');
+    }
+
+    function formatLabel(key) {
+      return key
+        .replace(/([A-Z])/g, ' $1')
+        .trim()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+    }
+  </script>
+</body>
+</html>
