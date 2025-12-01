@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Credit Analysis Results</title>
+  <title>Credit Analysis Results | Credit Scoring Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -12,36 +15,107 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #F8FAFC;
       min-height: 100vh;
-      padding: 20px;
     }
 
+    /* Header */
+    .top-header {
+      background: white;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 1rem 2rem;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: #ED1C24;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 24px;
+      height: 24px;
+      color: white;
+    }
+
+    .header-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1A202C;
+    }
+
+    .header-subtitle {
+      font-size: 0.875rem;
+      color: #64748B;
+    }
+
+    /* Main Content */
     .container {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 2rem;
     }
 
-    .header {
-      text-align: center;
-      color: white;
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #ED1C24;
+      text-decoration: none;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 0.8;
+    }
+
+    .page-header {
       margin-bottom: 2rem;
     }
 
-    .header h1 {
-      font-size: 2.5rem;
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1A202C;
       margin-bottom: 0.5rem;
     }
 
+    .page-header p {
+      color: #64748B;
+    }
+
+    /* Cards */
     .card {
       background: white;
       border-radius: 12px;
+      border: 1px solid #E2E8F0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       padding: 2rem;
       margin-bottom: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     }
 
+    /* Approval Status Card */
     .approval-card {
       display: flex;
       align-items: center;
@@ -50,51 +124,75 @@
     }
 
     .approval-card.approved {
-      background: #d4edda;
-      border: 3px solid #28a745;
+      background: #ECFDF5;
+      border: 2px solid #10B981;
     }
 
     .approval-card.denied {
-      background: #f8d7da;
-      border: 3px solid #dc3545;
+      background: #FEF2F2;
+      border: 2px solid #EF4444;
     }
 
     .approval-icon {
-      font-size: 4rem;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .approval-card.approved .approval-icon {
+      background: #10B981;
+    }
+
+    .approval-card.denied .approval-icon {
+      background: #EF4444;
+    }
+
+    .approval-icon svg {
+      width: 32px;
+      height: 32px;
+      color: white;
     }
 
     .approval-text h2 {
-      font-size: 2rem;
+      font-size: 1.75rem;
+      font-weight: 700;
       margin-bottom: 0.5rem;
     }
 
-    .approval-text.approved h2 {
-      color: #155724;
+    .approval-card.approved .approval-text h2 {
+      color: #065F46;
     }
 
-    .approval-text.denied h2 {
-      color: #721c24;
+    .approval-card.denied .approval-text h2 {
+      color: #991B1B;
     }
 
     .approval-text p {
-      font-size: 1.1rem;
+      color: #4B5563;
+      font-size: 1rem;
     }
 
+    /* Grid Layout */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
 
+    /* Score Display */
     .score-display {
       text-align: center;
-      padding: 2rem;
+      padding: 1rem;
     }
 
     .score-circle {
-      width: 200px;
-      height: 200px;
+      width: 180px;
+      height: 180px;
       margin: 0 auto 1.5rem;
       position: relative;
     }
@@ -104,53 +202,57 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 3.5rem;
-      font-weight: bold;
+      font-size: 3rem;
+      font-weight: 700;
+      color: #1A202C;
     }
 
     .score-label {
-      font-size: 0.9rem;
-      color: #6c757d;
+      font-size: 0.875rem;
+      color: #64748B;
+      font-weight: 500;
     }
 
     .risk-badge {
       display: inline-block;
-      padding: 0.5rem 1.5rem;
-      border-radius: 25px;
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.875rem;
+      margin-top: 0.75rem;
     }
 
     .risk-very-low {
-      background: #d4edda;
-      color: #155724;
+      background: #D1FAE5;
+      color: #065F46;
     }
 
     .risk-low {
-      background: #d1ecf1;
-      color: #0c5460;
+      background: #DBEAFE;
+      color: #1E40AF;
     }
 
     .risk-medium {
-      background: #fff3cd;
-      color: #856404;
+      background: #FEF3C7;
+      color: #92400E;
     }
 
     .risk-high {
-      background: #f8d7da;
-      color: #721c24;
+      background: #FEE2E2;
+      color: #991B1B;
     }
 
     .risk-very-high {
-      background: #f5c6cb;
-      color: #721c24;
+      background: #FECACA;
+      color: #7F1D1D;
     }
 
+    /* Info Rows */
     .info-row {
       display: flex;
       justify-between;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid #e9ecef;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid #F1F5F9;
     }
 
     .info-row:last-child {
@@ -158,46 +260,68 @@
     }
 
     .info-label {
-      color: #6c757d;
-      font-size: 0.9rem;
+      color: #64748B;
+      font-size: 0.875rem;
+      font-weight: 500;
     }
 
     .info-value {
       font-weight: 600;
-      color: #212529;
+      color: #1A202C;
     }
 
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1A202C;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid #F1F5F9;
+    }
+
+    /* Progress Bars */
     .progress-bar-container {
-      margin: 1rem 0;
+      margin: 1.25rem 0;
     }
 
     .progress-label {
       display: flex;
       justify-content: space-between;
       margin-bottom: 0.5rem;
-      font-size: 0.9rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .progress-label-name {
+      color: #1A202C;
+    }
+
+    .progress-label-value {
+      color: #64748B;
     }
 
     .progress-bar {
       width: 100%;
-      height: 10px;
-      background: #e9ecef;
-      border-radius: 5px;
+      height: 8px;
+      background: #F1F5F9;
+      border-radius: 4px;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
-      border-radius: 5px;
-      transition: width 0.3s ease;
+      background: linear-gradient(90deg, #ED1C24 0%, #F87171 100%);
+      border-radius: 4px;
+      transition: width 0.5s ease;
     }
 
+    /* Flags */
     .flag-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid #e9ecef;
+      padding: 0.875rem 0;
+      border-bottom: 1px solid #F1F5F9;
     }
 
     .flag-item:last-child {
@@ -208,81 +332,108 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-      color: #495057;
+      color: #1A202C;
+      font-weight: 500;
+      font-size: 0.875rem;
+    }
+
+    .flag-value {
+      font-weight: 600;
+      font-size: 0.875rem;
     }
 
     .flag-value.yes {
-      color: #dc3545;
-      font-weight: 600;
+      color: #EF4444;
     }
 
     .flag-value.no {
-      color: #28a745;
-      font-weight: 600;
+      color: #10B981;
     }
 
+    /* Notes */
     .notes-list {
       list-style: none;
       padding: 0;
     }
 
     .notes-list li {
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
-      background: #f8f9fa;
-      border-radius: 6px;
-      border-left: 4px solid #0066cc;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      background: #F8FAFC;
+      border-radius: 8px;
+      border-left: 3px solid #ED1C24;
+      color: #475569;
+      line-height: 1.6;
     }
 
-    .button {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.2s;
-      cursor: pointer;
-      border: none;
-      font-size: 1rem;
-    }
-
-    .button-primary {
-      background: #667eea;
-      color: white;
-    }
-
-    .button-primary:hover {
-      background: #5568d3;
-    }
-
-    .button-secondary {
-      background: #6c757d;
-      color: white;
-    }
-
-    .button-secondary:hover {
-      background: #5a6268;
-    }
-
-    .actions {
+    /* Buttons */
+    .button-group {
       display: flex;
       gap: 1rem;
       margin-top: 2rem;
     }
 
-    .error-container {
-      text-align: center;
-      padding: 3rem;
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+      font-size: 0.875rem;
     }
 
-    .error-container h2 {
-      color: #dc3545;
+    .button-primary {
+      background: #ED1C24;
+      color: white;
+    }
+
+    .button-primary:hover {
+      background: #DC2626;
+    }
+
+    .button-secondary {
+      background: white;
+      color: #475569;
+      border: 1px solid #E2E8F0;
+    }
+
+    .button-secondary:hover {
+      background: #F8FAFC;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #94A3B8;
+      font-size: 0.875rem;
+    }
+
+    .error-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .error-state h2 {
+      font-size: 1.5rem;
+      color: #1A202C;
       margin-bottom: 1rem;
     }
 
+    .error-state p {
+      color: #64748B;
+      margin-bottom: 2rem;
+    }
+
     @media (max-width: 768px) {
-      .header h1 {
-        font-size: 1.75rem;
+      .container {
+        padding: 1rem;
       }
 
       .approval-card {
@@ -294,34 +445,83 @@
         grid-template-columns: 1fr;
       }
 
-      .actions {
+      .button-group {
         flex-direction: column;
       }
 
       .button {
         width: 100%;
-        text-align: center;
+      }
+
+      .page-header h1 {
+        font-size: 1.5rem;
       }
     }
 
     @media print {
+      .back-link,
+      .button-group,
+      .top-header,
+      .footer {
+        display: none;
+      }
+
       body {
         background: white;
       }
 
-      .actions {
-        display: none;
+      .card {
+        box-shadow: none;
+        border: 1px solid #E2E8F0;
+        page-break-inside: avoid;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Top Header -->
+  <div class="top-header">
+    <div class="header-content">
+      <div class="logo-section">
+        <div class="logo-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <div>
+          <div class="header-title">Credit Scoring Platform</div>
+          <div class="header-subtitle">Secure Credit Analysis</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
   <div class="container">
-    <div class="header">
-      <h1>🏦 Credit Analysis Report</h1>
+    <a href="index.html" class="back-link">
+      <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Back to Application
+    </a>
+
+    <div class="page-header">
+      <h1>Credit Analysis Results</h1>
+      <p id="analysisDate">Analysis completed</p>
     </div>
 
-    <div id="results-container"></div>
+    <div id="content">
+      <!-- Content will be loaded here by JavaScript -->
+      <div class="error-state">
+        <h2>Loading Analysis...</h2>
+        <p>Please wait while we retrieve your credit analysis results.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Powered by Credit Scoring Platform | Confidential Information</p>
   </div>
 
   <script>
@@ -330,81 +530,91 @@
     const analysisId = urlParams.get('id');
 
     if (!analysisId) {
-      showError('No analysis ID provided');
+      showError('No analysis ID provided', 'Please return to the application form and submit your information.');
     } else {
       loadAnalysis(analysisId);
     }
 
     function loadAnalysis(id) {
       // Get analysis from sessionStorage
-      const stored = sessionStorage.getItem(`analysis_${id}`);
+      const storageKey = `analysis_${id}`;
+      const analysisData = sessionStorage.getItem(storageKey);
 
-      if (!stored) {
-        showError('Analysis not found. The data may have expired.');
+      if (!analysisData) {
+        showError('Analysis Not Found', 'The requested analysis could not be found. It may have expired.');
         return;
       }
 
-      const analysis = JSON.parse(stored);
-      renderAnalysis(analysis);
+      try {
+        const analysis = JSON.parse(analysisData);
+        displayAnalysis(analysis);
+      } catch (error) {
+        showError('Error Loading Analysis', 'There was an error loading your analysis results.');
+      }
     }
 
-    function showError(message) {
-      document.getElementById('results-container').innerHTML = `
-        <div class="card error-container">
-          <h2>⚠️ ${message}</h2>
-          <p style="color: #6c757d; margin-bottom: 2rem;">The credit analysis could not be loaded.</p>
-          <a href="index.html" class="button button-primary">← Go Back</a>
+    function showError(title, message) {
+      const content = document.getElementById('content');
+      content.innerHTML = `
+        <div class="error-state">
+          <h2>${title}</h2>
+          <p>${message}</p>
+          <a href="index.html" class="button button-primary">Return to Application</a>
         </div>
       `;
     }
 
-    function renderAnalysis(analysis) {
-      const container = document.getElementById('results-container');
+    function displayAnalysis(analysis) {
+      const date = new Date(analysis.timestamp);
+      document.getElementById('analysisDate').textContent = `Analysis completed on ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`;
 
-      const approved = analysis.approved;
-      const scoreColor = getScoreColor(analysis.creditScore);
-      const riskClass = getRiskClass(analysis.riskLevel);
+      const isApproved = analysis.approved;
+      const approvalClass = isApproved ? 'approved' : 'denied';
+      const approvalText = isApproved ? 'Application Approved' : 'Application Denied';
+      const approvalMessage = isApproved
+        ? `Congratulations! Your credit application has been approved for up to ${formatCurrency(analysis.maxLoanAmount)}.`
+        : 'We regret to inform you that your credit application could not be approved at this time.';
 
-      container.innerHTML = `
+      const approvalIcon = isApproved
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+
+      const content = document.getElementById('content');
+      content.innerHTML = `
         <!-- Approval Status -->
-        <div class="card approval-card ${approved ? 'approved' : 'denied'}">
-          <div class="approval-icon">${approved ? '✅' : '❌'}</div>
-          <div class="approval-text ${approved ? 'approved' : 'denied'}">
-            <h2>${approved ? 'Application Approved' : 'Application Requires Review'}</h2>
-            <p>${approved
-              ? `Approved for up to $${analysis.maxLoanAmount.toLocaleString()} at ${analysis.recommendedRate.toFixed(2)}% APR`
-              : 'This application needs manual review before processing'
-            }</p>
+        <div class="card approval-card ${approvalClass}">
+          <div class="approval-icon">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              ${approvalIcon}
+            </svg>
+          </div>
+          <div class="approval-text ${approvalClass}">
+            <h2>${approvalText}</h2>
+            <p>${approvalMessage}</p>
           </div>
         </div>
 
+        <!-- Main Grid -->
         <div class="grid">
           <!-- Credit Score -->
-          <div class="card">
-            <h3 style="margin-bottom: 1.5rem;">Credit Score</h3>
-            <div class="score-display">
-              <div class="score-circle">
-                <svg width="200" height="200" style="transform: rotate(-90deg);">
-                  <circle cx="100" cy="100" r="90" stroke="#e9ecef" stroke-width="12" fill="none"/>
-                  <circle cx="100" cy="100" r="90" stroke="${scoreColor}" stroke-width="12" fill="none"
-                    stroke-dasharray="${analysis.creditScore * 5.65} 565" stroke-linecap="round"/>
-                </svg>
-                <div class="score-value" style="color: ${scoreColor};">
-                  ${analysis.creditScore}
-                </div>
-              </div>
-              <div class="score-label">out of 100</div>
-              <div style="margin-top: 1rem;">
-                <span class="risk-badge risk-${riskClass}">
-                  ${analysis.riskLevel.replace(/_/g, ' ')} RISK
-                </span>
-              </div>
+          <div class="card score-display">
+            <svg class="score-circle" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#F1F5F9" stroke-width="12"/>
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#ED1C24" stroke-width="12"
+                stroke-dasharray="${analysis.creditScore * 5.65} 565"
+                stroke-linecap="round"
+                transform="rotate(-90 100 100)"/>
+            </svg>
+            <div class="score-value">${analysis.creditScore}</div>
+            <div class="score-label">Credit Score</div>
+            <div class="risk-badge risk-${analysis.riskLevel.toLowerCase().replace(' ', '-')}">
+              ${analysis.riskLevel} Risk
             </div>
           </div>
 
           <!-- Applicant Info -->
           <div class="card">
-            <h3 style="margin-bottom: 1.5rem;">Applicant Information</h3>
+            <h3 class="card-title">Applicant Information</h3>
             <div class="info-row">
               <span class="info-label">Name</span>
               <span class="info-value">${analysis.applicantName}</span>
@@ -415,125 +625,122 @@
             </div>
             <div class="info-row">
               <span class="info-label">Analysis ID</span>
-              <span class="info-value" style="font-size: 0.8rem;">${analysis.id}</span>
+              <span class="info-value">${analysis.id}</span>
+            </div>
+          </div>
+
+          <!-- Loan Details -->
+          <div class="card">
+            <h3 class="card-title">Loan Details</h3>
+            <div class="info-row">
+              <span class="info-label">Maximum Amount</span>
+              <span class="info-value">${formatCurrency(analysis.maxLoanAmount)}</span>
             </div>
             <div class="info-row">
-              <span class="info-label">Date</span>
-              <span class="info-value">${new Date(analysis.timestamp).toLocaleString()}</span>
+              <span class="info-label">Recommended Rate</span>
+              <span class="info-value">${analysis.recommendedRate.toFixed(2)}%</span>
             </div>
-            ${approved ? `
-              <div class="info-row">
-                <span class="info-label">Max Loan Amount</span>
-                <span class="info-value" style="color: #28a745;">$${analysis.maxLoanAmount.toLocaleString()}</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Recommended Rate</span>
-                <span class="info-value" style="color: #0066cc;">${analysis.recommendedRate.toFixed(2)}% APR</span>
-              </div>
-            ` : ''}
+            <div class="info-row">
+              <span class="info-label">Decision</span>
+              <span class="info-value">${isApproved ? 'Approved' : 'Denied'}</span>
+            </div>
           </div>
         </div>
 
-        <div class="grid">
-          <!-- Score Breakdown -->
-          <div class="card">
-            <h3 style="margin-bottom: 1.5rem;">Score Breakdown</h3>
-            ${Object.entries(analysis.scoreBreakdown).map(([key, value]) => `
-              <div class="progress-bar-container">
-                <div class="progress-label">
-                  <span>${formatLabel(key)}</span>
-                  <span><strong>${value}</strong></span>
-                </div>
-                <div class="progress-bar">
-                  <div class="progress-fill" style="width: ${value}%; background: ${getScoreColor(value)};"></div>
-                </div>
+        <!-- Score Breakdown -->
+        <div class="card">
+          <h3 class="card-title">Score Breakdown</h3>
+          ${Object.entries(analysis.scoreBreakdown).map(([category, score]) => `
+            <div class="progress-bar-container">
+              <div class="progress-label">
+                <span class="progress-label-name">${formatCategoryName(category)}</span>
+                <span class="progress-label-value">${score}/100</span>
               </div>
-            `).join('')}
-          </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: ${score}%"></div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
 
-          <!-- Credit Flags -->
-          <div class="card">
-            <h3 style="margin-bottom: 1.5rem;">Credit Flags</h3>
-            <div class="flag-item">
-              <div class="flag-label"><span>🚫</span> Blacklisted</div>
-              <div class="flag-value ${analysis.flags.isBlacklisted ? 'yes' : 'no'}">
-                ${analysis.flags.isBlacklisted ? 'YES' : 'NO'}
-              </div>
-            </div>
-            <div class="flag-item">
-              <div class="flag-label"><span>👤</span> PEP (Politically Exposed)</div>
-              <div class="flag-value ${analysis.flags.isPEP ? 'yes' : 'no'}">
-                ${analysis.flags.isPEP ? 'YES' : 'NO'}
-              </div>
-            </div>
-            <div class="flag-item">
-              <div class="flag-label"><span>⚠️</span> Sanctions List</div>
-              <div class="flag-value ${analysis.flags.isInSanctionsList ? 'yes' : 'no'}">
-                ${analysis.flags.isInSanctionsList ? 'YES' : 'NO'}
-              </div>
-            </div>
-            <div class="flag-item">
-              <div class="flag-label"><span>⚖️</span> Legal Proceedings</div>
-              <div class="flag-value ${analysis.flags.hasLegalProceedings ? 'yes' : 'no'}">
-                ${analysis.flags.hasLegalProceedings ? 'YES' : 'NO'}
-              </div>
-            </div>
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #e9ecef;">
-              <div class="info-row">
-                <span class="info-label">Total Debt</span>
-                <span class="info-value">$${analysis.flags.totalDebt.toLocaleString()}</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Unpaid Debts</span>
-                <span class="info-value">${analysis.flags.unpaidDebts}</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Recent Defaults</span>
-                <span class="info-value">${analysis.flags.recentDefaults}</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Credit Utilization</span>
-                <span class="info-value">${analysis.flags.creditUtilization}%</span>
-              </div>
-            </div>
+        <!-- Credit Flags -->
+        <div class="card">
+          <h3 class="card-title">Credit Flags</h3>
+          <div class="flag-item">
+            <span class="flag-label">Outstanding Debt</span>
+            <span class="flag-value ${analysis.flags.hasOutstandingDebt ? 'yes' : 'no'}">
+              ${analysis.flags.hasOutstandingDebt ? 'Yes' : 'No'}
+            </span>
+          </div>
+          <div class="flag-item">
+            <span class="flag-label">Delinquent Accounts</span>
+            <span class="flag-value ${analysis.flags.hasDelinquentAccounts ? 'yes' : 'no'}">
+              ${analysis.flags.hasDelinquentAccounts ? 'Yes' : 'No'}
+            </span>
+          </div>
+          <div class="flag-item">
+            <span class="flag-label">Bankruptcy History</span>
+            <span class="flag-value ${analysis.flags.hasBankruptcy ? 'yes' : 'no'}">
+              ${analysis.flags.hasBankruptcy ? 'Yes' : 'No'}
+            </span>
+          </div>
+          <div class="flag-item">
+            <span class="flag-label">Blacklisted</span>
+            <span class="flag-value ${analysis.flags.isBlacklisted ? 'yes' : 'no'}">
+              ${analysis.flags.isBlacklisted ? 'Yes' : 'No'}
+            </span>
+          </div>
+          <div class="flag-item">
+            <span class="flag-label">PEP (Politically Exposed Person)</span>
+            <span class="flag-value ${analysis.flags.isPEP ? 'yes' : 'no'}">
+              ${analysis.flags.isPEP ? 'Yes' : 'No'}
+            </span>
+          </div>
+          <div class="flag-item">
+            <span class="flag-label">Sanctions List</span>
+            <span class="flag-value ${analysis.flags.isInSanctionsList ? 'yes' : 'no'}">
+              ${analysis.flags.isInSanctionsList ? 'Yes' : 'No'}
+            </span>
           </div>
         </div>
 
         <!-- Analysis Notes -->
-        <div class="card">
-          <h3 style="margin-bottom: 1.5rem;">Analysis Notes</h3>
-          <ul class="notes-list">
-            ${analysis.notes.map(note => `<li>${note}</li>`).join('')}
-          </ul>
-        </div>
+        ${analysis.notes && analysis.notes.length > 0 ? `
+          <div class="card">
+            <h3 class="card-title">Analysis Notes</h3>
+            <ul class="notes-list">
+              ${analysis.notes.map(note => `<li>${note}</li>`).join('')}
+            </ul>
+          </div>
+        ` : ''}
 
         <!-- Actions -->
-        <div class="actions">
-          <a href="index.html" class="button button-primary">← New Application</a>
-          <button onclick="window.print()" class="button button-secondary">🖨️ Print Report</button>
+        <div class="button-group">
+          <button onclick="window.print()" class="button button-primary">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            Print Results
+          </button>
+          <a href="index.html" class="button button-secondary">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            New Application
+          </a>
         </div>
       `;
     }
 
-    function getScoreColor(score) {
-      if (score >= 80) return '#28a745';
-      if (score >= 60) return '#0066cc';
-      if (score >= 40) return '#ffc107';
-      if (score >= 20) return '#fd7e14';
-      return '#dc3545';
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
     }
 
-    function getRiskClass(level) {
-      return level.toLowerCase().replace(/_/g, '-');
-    }
-
-    function formatLabel(key) {
-      return key
+    function formatCategoryName(category) {
+      return category
         .replace(/([A-Z])/g, ' $1')
-        .trim()
-        .split(' ')
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+        .replace(/^./, str => str.toUpperCase())
+        .trim();
     }
   </script>
 </body>

@@ -69,18 +69,18 @@ export interface Theme {
 }
 
 /**
- * Default theme values
+ * Default theme values - Professional Equifax-inspired design
  */
 export const defaultTheme: Theme = {
-  primaryColor: '#0066cc',
-  secondaryColor: '#6c757d',
-  backgroundColor: '#ffffff',
-  textColor: '#212529',
-  errorColor: '#dc3545',
-  successColor: '#28a745',
-  borderColor: '#ced4da',
-  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
+  primaryColor: '#ED1C24',  // Equifax-inspired red
+  secondaryColor: '#4A5568',  // Professional gray
+  backgroundColor: '#FFFFFF',
+  textColor: '#1A202C',  // Dark gray for better readability
+  errorColor: '#E53E3E',  // Modern red for errors
+  successColor: '#38A169',  // Professional green
+  borderColor: '#E2E8F0',  // Light gray borders
+  fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
   fontSize: '16px',
-  borderRadius: '4px',
-  spacing: '16px',
+  borderRadius: '8px',  // More modern rounded corners
+  spacing: '20px',
 };

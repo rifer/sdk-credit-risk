@@ -98,56 +98,90 @@ export default function ConfigEditorPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
-        <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading configuration...</p>
+      <div className="min-h-screen bg-neutral-50">
+        <div className="bg-white border-b border-neutral-200">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-neutral-900">Credit Scoring Platform</h1>
+                <p className="text-sm text-neutral-600">Admin Portal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container mx-auto px-6 py-12">
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto"></div>
+            <p className="mt-4 text-neutral-600">Loading configuration...</p>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <div className="flex justify-between items-center mb-4">
-            <h1 className="text-3xl font-bold text-gray-900">
-              {isNew ? 'Create Configuration' : 'Edit Configuration'}
-            </h1>
-            <div className="flex gap-4">
+    <div className="min-h-screen bg-neutral-50">
+      {/* Header Bar */}
+      <div className="bg-white border-b border-neutral-200 sticky top-0 z-10 shadow-sm">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
               <button
                 onClick={() => router.push('/configs')}
-                className="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+                className="text-neutral-600 hover:text-neutral-900"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <div>
+                <h1 className="text-xl font-bold text-neutral-900">
+                  {isNew ? 'Create New Configuration' : 'Edit Configuration'}
+                </h1>
+                <p className="text-sm text-neutral-600">{isNew ? 'Set up a new widget' : config.name}</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => router.push('/configs')}
+                className="px-5 py-2.5 bg-white border border-neutral-300 text-neutral-700 rounded-lg hover:bg-neutral-50 transition-colors font-medium"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-6 py-3 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium disabled:opacity-50"
+                className="px-5 py-2.5 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors font-medium disabled:opacity-50 shadow-sm"
               >
                 {saving ? 'Saving...' : 'Save Configuration'}
               </button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6 py-8">
+        <div className="max-w-7xl mx-auto">
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
               {error}
             </div>
           )}
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column - Editors */}
           <div className="space-y-6">
             {/* Basic Info */}
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Basic Information</h2>
+            <div className="bg-white rounded-xl border border-neutral-200 p-6">
+              <h2 className="text-lg font-semibold text-neutral-900 mb-4">Basic Information</h2>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Configuration ID *
                   </label>
                   <input
@@ -155,29 +189,29 @@ export default function ConfigEditorPage() {
                     value={config.id}
                     onChange={(e) => setConfig({ ...config, id: e.target.value })}
                     disabled={!isNew}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:bg-gray-100"
+                    className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 disabled:bg-neutral-100 disabled:text-neutral-500"
                     placeholder="e.g., demo-001"
                   />
                   {!isNew && (
-                    <p className="mt-1 text-xs text-gray-500">ID cannot be changed after creation</p>
+                    <p className="mt-1.5 text-xs text-neutral-500">ID cannot be changed after creation</p>
                   )}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Configuration Name *
                   </label>
                   <input
                     type="text"
                     value={config.name}
                     onChange={(e) => setConfig({ ...config, name: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     placeholder="e.g., Credit Application Form"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Form Title
                   </label>
                   <input
@@ -189,12 +223,13 @@ export default function ConfigEditorPage() {
                         formSchema: { ...config.formSchema, title: e.target.value },
                       })
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="e.g., Credit Application"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Form Description
                   </label>
                   <textarea
@@ -205,13 +240,14 @@ export default function ConfigEditorPage() {
                         formSchema: { ...config.formSchema, description: e.target.value },
                       })
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                     rows={2}
+                    placeholder="Brief description of the form"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Submit Button Text
                   </label>
                   <input
@@ -223,7 +259,8 @@ export default function ConfigEditorPage() {
                         formSchema: { ...config.formSchema, submitButtonText: e.target.value },
                       })
                     }
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-4 py-2.5 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                    placeholder="e.g., Submit Application"
                   />
                 </div>
               </div>
@@ -247,9 +284,10 @@ export default function ConfigEditorPage() {
             />
           </div>
 
-          {/* Right Column - Live Preview */}
-          <div className="lg:sticky lg:top-8 lg:self-start">
-            <LivePreview config={config} />
+            {/* Right Column - Live Preview */}
+            <div className="lg:sticky lg:top-8 lg:self-start">
+              <LivePreview config={config} />
+            </div>
           </div>
         </div>
       </div>

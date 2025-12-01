@@ -1,126 +1,156 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Credit Scoring Widget - Vanilla HTML Example</title>
+  <title>Credit Scoring Application | Credit Analysis Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
-      padding: 20px;
+      padding: 0;
       box-sizing: border-box;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #F8FAFC;
       min-height: 100vh;
+    }
+
+    /* Header */
+    .top-header {
+      background: white;
+      border-bottom: 1px solid #E2E8F0;
+      padding: 1rem 2rem;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: #ED1C24;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
     }
 
+    .logo-icon svg {
+      width: 24px;
+      height: 24px;
+      color: white;
+    }
+
+    .header-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1A202C;
+    }
+
+    .header-subtitle {
+      font-size: 0.875rem;
+      color: #64748B;
+    }
+
+    /* Main Content */
     .container {
       max-width: 800px;
-      width: 100%;
+      margin: 0 auto;
+      padding: 3rem 2rem;
     }
 
-    .header {
+    .page-header {
       text-align: center;
-      color: white;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
 
-    .header h1 {
-      font-size: 2.5rem;
+    .page-header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1A202C;
       margin-bottom: 0.5rem;
     }
 
-    .header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
+    .page-header p {
+      font-size: 1rem;
+      color: #64748B;
     }
 
     .widget-wrapper {
       background: white;
       border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+      border: 1px solid #E2E8F0;
       overflow: hidden;
     }
 
-    .demo-controls {
-      background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-top: 2rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .demo-controls h3 {
-      margin-bottom: 1rem;
-      color: #333;
-    }
-
-    .demo-controls button {
-      background: #667eea;
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-right: 0.5rem;
-      margin-bottom: 0.5rem;
-      transition: background 0.2s;
-    }
-
-    .demo-controls button:hover {
-      background: #5568d3;
-    }
-
-    .event-log {
-      background: #f8f9fa;
-      border: 1px solid #dee2e6;
-      border-radius: 6px;
-      padding: 1rem;
-      margin-top: 1rem;
-      max-height: 200px;
-      overflow-y: auto;
-      font-family: 'Courier New', monospace;
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      color: #94A3B8;
       font-size: 0.875rem;
     }
 
-    .event-log-item {
-      padding: 0.5rem;
-      border-bottom: 1px solid #dee2e6;
+    .footer a {
+      color: #ED1C24;
+      text-decoration: none;
     }
 
-    .event-log-item:last-child {
-      border-bottom: none;
-    }
-
-    .event-log-item .timestamp {
-      color: #6c757d;
-      font-size: 0.75rem;
+    .footer a:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 768px) {
-      .header h1 {
-        font-size: 1.75rem;
+      .container {
+        padding: 2rem 1rem;
       }
 
-      .header p {
-        font-size: 1rem;
+      .page-header h1 {
+        font-size: 1.5rem;
+      }
+
+      .top-header {
+        padding: 1rem;
+      }
+
+      .header-title {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Top Header -->
+  <div class="top-header">
+    <div class="header-content">
+      <div class="logo-icon">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      </div>
+      <div>
+        <div class="header-title">Credit Scoring Platform</div>
+        <div class="header-subtitle">Secure Credit Analysis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
   <div class="container">
-    <div class="header">
-      <h1>🏦 Credit Scoring SDK</h1>
-      <p>Vanilla HTML Integration Example</p>
+    <div class="page-header">
+      <h1>Credit Application</h1>
+      <p>Complete the form below to receive your credit analysis</p>
     </div>
 
     <div class="widget-wrapper">
@@ -131,7 +161,11 @@
         api-url="http://localhost:3000"
       ></credit-scoring-widget>
     </div>
+  </div>
 
+  <!-- Footer -->
+  <div class="footer">
+    <p>Powered by Credit Scoring Platform | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
   </div>
 
   <!-- Import the Web Component -->
@@ -139,84 +173,5 @@
   <!-- <script type="module" src="https://cdn.example.com/credit-scoring-widget.mjs"></script> -->
   <!-- For local development, use the compiled file: -->
   <script type="module" src="../../packages/web-component/dist/credit-scoring-widget.mjs"></script>
-
-  <script>
-    const widget = document.getElementById('widget');
-    const eventLog = document.getElementById('eventLog');
-
-    // Listen to widget events
-    widget.addEventListener('submit-success', (e) => {
-      logEvent('✅ Form submitted successfully', e.detail);
-    });
-
-    widget.addEventListener('submit-error', (e) => {
-      logEvent('❌ Error submitting form', e.detail);
-    });
-
-    // Function to change theme
-    function changeTheme(theme) {
-      const themes = {
-        blue: {
-          '--cs-primary-color': '#0066cc',
-          '--cs-secondary-color': '#6c757d',
-        },
-        green: {
-          '--cs-primary-color': '#28a745',
-          '--cs-secondary-color': '#20c997',
-        },
-        purple: {
-          '--cs-primary-color': '#6f42c1',
-          '--cs-secondary-color': '#e83e8c',
-        }
-      };
-
-      const themeColors = themes[theme];
-      if (themeColors) {
-        Object.entries(themeColors).forEach(([prop, value]) => {
-          widget.style.setProperty(prop, value);
-        });
-        logEvent(`🎨 Theme changed to: ${theme}`);
-      }
-    }
-
-    // Function to reset widget
-    function resetWidget() {
-      const currentId = widget.getAttribute('config-id');
-      widget.setAttribute('config-id', '');
-      setTimeout(() => {
-        widget.setAttribute('config-id', currentId);
-        logEvent('🔄 Widget reset');
-      }, 100);
-    }
-
-    // Function to log events
-    function logEvent(message, data) {
-      if (!eventLog) return; // Guard against null
-
-      const timestamp = new Date().toLocaleTimeString();
-      const logItem = document.createElement('div');
-      logItem.className = 'event-log-item';
-      logItem.innerHTML = `
-        <div class="timestamp">${timestamp}</div>
-        <div>${message}</div>
-        ${data ? `<pre style="margin-top: 0.5rem; font-size: 0.75rem;">${JSON.stringify(data, null, 2)}</pre>` : ''}
-      `;
-
-      // Clear initial message if it exists
-      if (eventLog.children.length === 1 && eventLog.children[0].style.textAlign === 'center') {
-        eventLog.innerHTML = '';
-      }
-
-      eventLog.insertBefore(logItem, eventLog.firstChild);
-
-      // Limit to 10 events
-      while (eventLog.children.length > 10) {
-        eventLog.removeChild(eventLog.lastChild);
-      }
-    }
-
-    // Initial log
-    logEvent('🚀 Widget initialized');
-  </script>
 </body>
 </html>

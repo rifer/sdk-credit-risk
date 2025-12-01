@@ -241,25 +241,40 @@ export default function LivePreview({ config }: LivePreviewProps) {
   }, [config]);
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-gray-900">👁️ Live Preview</h2>
-        <div className="text-xs text-gray-500">Updates in real-time</div>
+    <div className="bg-white rounded-xl border border-neutral-200 overflow-hidden">
+      <div className="bg-neutral-50 border-b border-neutral-200 px-6 py-4">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+            <h2 className="text-lg font-semibold text-neutral-900">Live Preview</h2>
+          </div>
+          <div className="text-xs text-neutral-500 bg-neutral-100 px-2.5 py-1 rounded-full">Real-time</div>
+        </div>
       </div>
 
-      <div className="border-2 border-gray-200 rounded-lg overflow-hidden bg-gray-50">
-        <iframe
-          ref={iframeRef}
-          className="w-full h-[600px] bg-white"
-          title="Widget Preview"
-        />
-      </div>
+      <div className="p-6">
+        <div className="border-2 border-neutral-200 rounded-lg overflow-hidden bg-neutral-50">
+          <iframe
+            ref={iframeRef}
+            className="w-full h-[600px] bg-white"
+            title="Widget Preview"
+          />
+        </div>
 
-      <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-        <h3 className="text-sm font-semibold text-blue-900 mb-2">Integration Code</h3>
-        <pre className="text-xs text-blue-800 overflow-x-auto">
-          {`<script type="module" src="https://cdn.your-domain.com/credit-scoring-widget.js"></script>\n<credit-scoring-widget config-id="${config.id}"></credit-scoring-widget>`}
-        </pre>
+        <div className="mt-4 p-4 bg-neutral-900 rounded-lg">
+          <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            Integration Code
+          </h3>
+          <pre className="text-xs text-neutral-300 overflow-x-auto font-mono leading-relaxed">
+            {`<script type="module" src="https://cdn.your-domain.com/widget.js"></script>\n<credit-scoring-widget config-id="${config.id}"></credit-scoring-widget>`}
+          </pre>
+        </div>
       </div>
     </div>
   );
