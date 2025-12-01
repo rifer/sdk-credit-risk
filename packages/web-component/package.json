@@ -1,0 +1,31 @@
+{
+  "name": "@credit-scoring/web-component",
+  "version": "1.0.0",
+  "description": "Credit Scoring embeddable web component",
+  "main": "./dist/credit-scoring-widget.js",
+  "module": "./dist/credit-scoring-widget.js",
+  "types": "./dist/credit-scoring-widget.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "web-component",
+    "credit-scoring",
+    "lit"
+  ],
+  "dependencies": {
+    "@credit-scoring/shared": "workspace:*",
+    "lit": "^3.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vite": "^5.0.10"
+  }
+}

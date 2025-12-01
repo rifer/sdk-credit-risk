@@ -1,0 +1,26 @@
+{
+  "name": "credit-scoring-sdk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Credit Scoring B2B SDK - Web Component embebible para bancos y entidades financieras",
+  "scripts": {
+    "dev": "pnpm --filter \"./packages/*\" --parallel dev",
+    "build": "pnpm --filter \"./packages/*\" build",
+    "build:web-component": "pnpm --filter @credit-scoring/web-component build",
+    "build:admin-portal": "pnpm --filter @credit-scoring/admin-portal build",
+    "lint": "pnpm --filter \"./packages/*\" lint",
+    "type-check": "pnpm --filter \"./packages/*\" type-check",
+    "clean": "pnpm --filter \"./packages/*\" clean && rm -rf node_modules"
+  },
+  "keywords": [
+    "credit-scoring",
+    "web-component",
+    "sdk",
+    "b2b"
+  ],
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0"
+}
