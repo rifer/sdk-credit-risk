@@ -541,20 +541,38 @@ export class CreditScoringWidget extends LitElement {
     // Submit form
     this.submitting = true;
     try {
-      // Mock API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Submit to credit scoring API
+      const response = await fetch(`${this.apiUrl}/api/submit`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          configId: this.config.id,
+          formData: this.formData,
+        }),
+      });
 
-      this.submitSuccess = true;
-      this.formData = {};
+      const result = await response.json();
 
-      // Dispatch custom event
-      this.dispatchEvent(new CustomEvent('submit-success', {
-        detail: { data: this.formData },
-        bubbles: true,
-        composed: true,
-      }));
+      if (result.success && result.data) {
+        // Store analysis in sessionStorage for results page
+        sessionStorage.setItem(`analysis_${result.data.id}`, JSON.stringify(result.data));
+
+        // Dispatch custom event
+        this.dispatchEvent(new CustomEvent('submit-success', {
+          detail: { data: result.data },
+          bubbles: true,
+          composed: true,
+        }));
+
+        // Redirect to results page
+        window.location.href = `${this.apiUrl}/results/${result.data.id}`;
+      } else {
+        throw new Error(result.error || 'Failed to submit');
+      }
     } catch (err) {
-      this.error = this.config.errorMessage || 'Error al enviar el formulario';
+      this.error = this.config.errorMessage || 'Error submitting form';
 
       this.dispatchEvent(new CustomEvent('submit-error', {
         detail: { error: err },

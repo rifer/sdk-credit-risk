@@ -19,3 +19,14 @@ export type {
 
 // Config types
 export type { WidgetConfig, ConfigResponse } from './config';
+
+// Credit analysis types
+export type {
+  CreditRiskLevel,
+  FinancialStatus,
+  CreditFlags,
+  CreditScoreBreakdown,
+  CreditAnalysisResult,
+  CreditAnalysisRequest,
+  CreditAnalysisResponse,
+} from './credit-analysis';
