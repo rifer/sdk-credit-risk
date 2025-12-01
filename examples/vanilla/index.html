@@ -144,19 +144,55 @@
     const widget = document.getElementById('widget');
     const eventLog = document.getElementById('eventLog');
 
-    // Escuchar eventos del widget
+    // Listen to widget events
     widget.addEventListener('submit-success', (e) => {
-      logEvent('✅ Formulario enviado con éxito', e.detail);
+      logEvent('✅ Form submitted successfully', e.detail);
     });
 
     widget.addEventListener('submit-error', (e) => {
-      logEvent('❌ Error al enviar formulario', e.detail);
+      logEvent('❌ Error submitting form', e.detail);
     });
 
+    // Function to change theme
+    function changeTheme(theme) {
+      const themes = {
+        blue: {
+          '--cs-primary-color': '#0066cc',
+          '--cs-secondary-color': '#6c757d',
+        },
+        green: {
+          '--cs-primary-color': '#28a745',
+          '--cs-secondary-color': '#20c997',
+        },
+        purple: {
+          '--cs-primary-color': '#6f42c1',
+          '--cs-secondary-color': '#e83e8c',
+        }
+      };
 
+      const themeColors = themes[theme];
+      if (themeColors) {
+        Object.entries(themeColors).forEach(([prop, value]) => {
+          widget.style.setProperty(prop, value);
+        });
+        logEvent(`🎨 Theme changed to: ${theme}`);
+      }
+    }
 
-    // Función para loggear eventos
+    // Function to reset widget
+    function resetWidget() {
+      const currentId = widget.getAttribute('config-id');
+      widget.setAttribute('config-id', '');
+      setTimeout(() => {
+        widget.setAttribute('config-id', currentId);
+        logEvent('🔄 Widget reset');
+      }, 100);
+    }
+
+    // Function to log events
     function logEvent(message, data) {
+      if (!eventLog) return; // Guard against null
+
       const timestamp = new Date().toLocaleTimeString();
       const logItem = document.createElement('div');
       logItem.className = 'event-log-item';
@@ -166,21 +202,21 @@
         ${data ? `<pre style="margin-top: 0.5rem; font-size: 0.75rem;">${JSON.stringify(data, null, 2)}</pre>` : ''}
       `;
 
-      // Limpiar el mensaje inicial si existe
+      // Clear initial message if it exists
       if (eventLog.children.length === 1 && eventLog.children[0].style.textAlign === 'center') {
         eventLog.innerHTML = '';
       }
 
       eventLog.insertBefore(logItem, eventLog.firstChild);
 
-      // Limitar a 10 eventos
+      // Limit to 10 events
       while (eventLog.children.length > 10) {
         eventLog.removeChild(eventLog.lastChild);
       }
     }
 
-    // Log inicial
-    logEvent('🚀 Widget inicializado');
+    // Initial log
+    logEvent('🚀 Widget initialized');
   </script>
 </body>
 </html>
