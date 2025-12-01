@@ -7,7 +7,7 @@
   <style>
     * {
       margin: 0;
-      padding: 0;
+      padding: 20px;
       box-sizing: border-box;
     }
 
@@ -127,24 +127,11 @@
       <!-- The Web Component integrates with a simple HTML tag -->
       <credit-scoring-widget
         id="widget"
-        config-id="demo-001"
+        config-id="demo-002"
         api-url="http://localhost:3000"
       ></credit-scoring-widget>
     </div>
 
-    <div class="demo-controls">
-      <h3>Demo Controls</h3>
-      <button onclick="changeTheme('blue')">Blue Theme</button>
-      <button onclick="changeTheme('green')">Green Theme</button>
-      <button onclick="changeTheme('purple')">Purple Theme</button>
-      <button onclick="resetWidget()">Reset Widget</button>
-
-      <div class="event-log" id="eventLog">
-        <div style="color: #6c757d; text-align: center; padding: 1rem;">
-          Widget events will appear here...
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- Import the Web Component -->
@@ -166,42 +153,7 @@
       logEvent('❌ Error al enviar formulario', e.detail);
     });
 
-    // Función para cambiar el tema dinámicamente
-    function changeTheme(theme) {
-      const themes = {
-        blue: {
-          '--cs-primary-color': '#0066cc',
-          '--cs-secondary-color': '#6c757d',
-        },
-        green: {
-          '--cs-primary-color': '#28a745',
-          '--cs-secondary-color': '#20c997',
-        },
-        purple: {
-          '--cs-primary-color': '#6f42c1',
-          '--cs-secondary-color': '#e83e8c',
-        }
-      };
 
-      const themeColors = themes[theme];
-      if (themeColors) {
-        Object.entries(themeColors).forEach(([prop, value]) => {
-          widget.style.setProperty(prop, value);
-        });
-        logEvent(`🎨 Tema cambiado a: ${theme}`);
-      }
-    }
-
-    // Función para resetear el widget
-    function resetWidget() {
-      // Recargar el widget cambiando el config-id
-      const currentId = widget.getAttribute('config-id');
-      widget.setAttribute('config-id', '');
-      setTimeout(() => {
-        widget.setAttribute('config-id', currentId);
-        logEvent('🔄 Widget reseteado');
-      }, 100);
-    }
 
     // Función para loggear eventos
     function logEvent(message, data) {

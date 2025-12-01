@@ -3,14 +3,14 @@
     "id": "demo-001",
     "name": "Credit Application Form - Demo",
     "theme": {
-      "primaryColor": "#0066cc",
-      "secondaryColor": "#6c757d",
+      "primaryColor": "#ccaa00",
+      "secondaryColor": "#4d99db",
       "backgroundColor": "#ffffff",
       "textColor": "#212529",
-      "errorColor": "#dc3545",
+      "errorColor": "#d7a3a8",
       "successColor": "#28a745",
       "borderColor": "#ced4da",
-      "fontFamily": "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif",
+      "fontFamily": "\"Times New Roman\", serif",
       "fontSize": "16px",
       "borderRadius": "4px",
       "spacing": "16px",
@@ -56,6 +56,59 @@
             "max": 50000,
             "message": "Amount must be between $1,000 and $50,000"
           }
+        }
+      ]
+    },
+    "submitEndpoint": "/api/submit",
+    "successMessage": "Application submitted successfully!",
+    "errorMessage": "Error submitting application. Please try again.",
+    "showBranding": true
+  },
+  {
+    "id": "demo-002",
+    "name": "Credit Application Form",
+    "theme": {
+      "primaryColor": "#0066cc",
+      "secondaryColor": "#6c757d",
+      "backgroundColor": "#ffffff",
+      "textColor": "#212529",
+      "errorColor": "#dc3545",
+      "successColor": "#28a745",
+      "borderColor": "#ced4da",
+      "fontFamily": "Georgia, serif",
+      "fontSize": "16px",
+      "borderRadius": "4px",
+      "spacing": "16px"
+    },
+    "formSchema": {
+      "title": "Credit Application",
+      "description": "Complete the form below",
+      "submitButtonText": "Submit",
+      "fields": [
+        {
+          "id": "field_1764587891177",
+          "type": "text",
+          "label": "Name",
+          "placeholder": "your name",
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "id": "field_1764587909886",
+          "type": "text",
+          "label": "Surname",
+          "placeholder": "surname",
+          "validation": {
+            "required": true
+          }
+        },
+        {
+          "id": "field_1764587922487",
+          "type": "number",
+          "label": "Money?",
+          "placeholder": "how much do you need?",
+          "validation": {}
         }
       ]
     },
