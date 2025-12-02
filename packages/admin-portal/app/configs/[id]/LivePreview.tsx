@@ -44,7 +44,8 @@ export default function LivePreview({ config }: LivePreviewProps) {
       }
 
       render() {
-        const config = ${JSON.stringify(config)};
+        // Read config from window to allow dynamic updates
+        const config = window.__WIDGET_CONFIG__ || ${JSON.stringify(config)};
         const theme = config.theme;
         const formSchema = config.formSchema;
 
@@ -235,6 +236,10 @@ export default function LivePreview({ config }: LivePreviewProps) {
   </script>
 </head>
 <body>
+  <script>
+    // Set config globally before custom element renders
+    window.__WIDGET_CONFIG__ = ${JSON.stringify(config)};
+  </script>
   <credit-scoring-widget></credit-scoring-widget>
 </body>
 </html>
