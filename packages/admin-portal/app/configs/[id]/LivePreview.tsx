@@ -228,7 +228,10 @@ export default function LivePreview({ config }: LivePreviewProps) {
       }
     }
 
-    customElements.define('credit-scoring-widget', CreditScoringWidget);
+    // Only define if not already defined
+    if (!customElements.get('credit-scoring-widget')) {
+      customElements.define('credit-scoring-widget', CreditScoringWidget);
+    }
   </script>
 </head>
 <body>
