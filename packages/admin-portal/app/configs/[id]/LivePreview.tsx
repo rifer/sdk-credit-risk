@@ -13,8 +13,10 @@ export default function LivePreview({ config }: LivePreviewProps) {
   useEffect(() => {
     if (!iframeRef.current) return;
 
-    // Generate preview HTML
-    const html = `
+    // Add small delay to batch rapid changes
+    const timeoutId = setTimeout(() => {
+      // Generate preview HTML
+      const html = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +63,10 @@ export default function LivePreview({ config }: LivePreviewProps) {
 
             * {
               box-sizing: border-box;
+            }
+
+            .widget-container {
+              padding: 25px;
             }
 
             .widget-header {
@@ -231,13 +237,16 @@ export default function LivePreview({ config }: LivePreviewProps) {
 </html>
     `;
 
-    // Write to iframe
-    const iframeDoc = iframeRef.current.contentDocument;
-    if (iframeDoc) {
-      iframeDoc.open();
-      iframeDoc.write(html);
-      iframeDoc.close();
-    }
+      // Write to iframe
+      const iframeDoc = iframeRef.current?.contentDocument;
+      if (iframeDoc) {
+        iframeDoc.open();
+        iframeDoc.write(html);
+        iframeDoc.close();
+      }
+    }, 150); // 150ms debounce for smooth updates
+
+    return () => clearTimeout(timeoutId);
   }, [config]);
 
   return (
