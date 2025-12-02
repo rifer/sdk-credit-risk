@@ -93,7 +93,7 @@ export class CreditScoringWidget extends LitElement {
 
     .widget-container {
       max-width: 100%;
-      padding: 25px;
+      padding: 25px !important;
     }
 
     .widget-header {
