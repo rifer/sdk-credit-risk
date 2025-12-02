@@ -82,7 +82,7 @@ export class CreditScoringWidget extends LitElement {
       font-size: var(--cs-font-size, 16px);
       color: var(--cs-text-color, #212529);
       background-color: var(--cs-background-color, #ffffff);
-      padding: var(--cs-spacing, 16px);
+      padding: 25px;
       border-radius: var(--cs-border-radius, 4px);
       box-sizing: border-box;
     }
@@ -93,7 +93,6 @@ export class CreditScoringWidget extends LitElement {
 
     .widget-container {
       max-width: 100%;
-      padding: 25px !important;
     }
 
     .widget-header {

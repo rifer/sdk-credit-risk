@@ -57,7 +57,7 @@ export default function LivePreview({ config }: LivePreviewProps) {
               font-size: \${theme.fontSize};
               color: \${theme.textColor};
               background-color: \${theme.backgroundColor};
-              padding: \${theme.spacing};
+              padding: 25px;
               border-radius: \${theme.borderRadius};
               box-sizing: border-box;
             }
@@ -67,7 +67,6 @@ export default function LivePreview({ config }: LivePreviewProps) {
             }
 
             .widget-container {
-              padding: 25px;
             }
 
             .widget-header {
