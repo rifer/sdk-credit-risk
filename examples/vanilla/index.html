@@ -174,5 +174,21 @@
   <!-- <script type="module" src="https://cdn.example.com/credit-scoring-widget.mjs"></script> -->
   <!-- For local development, use the compiled file: -->
   <script type="module" src="../../packages/web-component/dist/credit-scoring-widget.mjs"></script>
+
+  <!-- Dynamic config ID from URL parameter -->
+  <script>
+    // Get config ID from URL parameter (?config=abc123) or use default
+    const urlParams = new URLSearchParams(window.location.search);
+    const configId = urlParams.get('config') || 'demo-002';
+
+    // Set the config-id attribute on the widget
+    document.addEventListener('DOMContentLoaded', () => {
+      const widget = document.getElementById('widget');
+      if (widget) {
+        widget.setAttribute('config-id', configId);
+        console.log('Using config ID:', configId);
+      }
+    });
+  </script>
 </body>
 </html>
