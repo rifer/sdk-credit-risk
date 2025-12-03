@@ -172,8 +172,15 @@
   <!-- Import the Web Component -->
   <!-- In production, this would be something like: -->
   <!-- <script type="module" src="https://cdn.example.com/credit-scoring-widget.mjs"></script> -->
-  <!-- For local development, use the compiled file: -->
-  <script type="module" src="../../packages/web-component/dist/credit-scoring-widget.mjs"></script>
+  <!-- For local development, use the compiled file with cache busting: -->
+  <script>
+    // Cache-busting: Add timestamp to force reload of component on changes
+    const timestamp = new Date().getTime();
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = `../../packages/web-component/dist/credit-scoring-widget.mjs?v=${timestamp}`;
+    document.head.appendChild(script);
+  </script>
 
   <!-- Dynamic config ID from URL parameter -->
   <script>
